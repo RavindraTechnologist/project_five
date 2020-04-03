@@ -1,2 +1,2 @@
 The Implemented Transformation functions are as follows:-
-map, joinBy, flatten, Date format, String Funtion, defining variables, Custom Function, mapObject, dataweaveCore function, DateTime function and Working with different formats (i.e. CSV, JSON, XML and Flat file).
+map, joinBy, flatten, Date format, String Funtion, defining variables, Custom Function, mapObject, implementation of various formats CSV, JSON and XML, dataweaveCore function and DateTime function.
