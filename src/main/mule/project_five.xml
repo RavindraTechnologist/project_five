@@ -13,15 +13,15 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<ee:transform doc:name="Transform Message" doc:id="99cc07c2-6b94-4edf-a03e-950f242015e6">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
-output application/xml
+output application/json
 ---
-"node":payload mapObject{
-	'$$':{
-		name:$$,
-		livingPonts:$.indexpoints,
-		tier:$.level
-	}
-}]]></ee:set-payload>
+[{
+	employee: [{
+		id: payload.emp1.name,
+		name: payload.emp1.experience,
+		skillset: payload.emp1.skillset
+	}]
+}]]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="fd699a5a-8ebf-494f-be7a-92fb907f5982" />
