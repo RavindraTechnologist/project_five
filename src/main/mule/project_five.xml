@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<flow name="Map_Function_Flow" doc:id="cf9bfacc-e0d9-48ac-8dc4-50ebef8fc4a3">
-		<http:listener doc:name="Listener" doc:id="f53df04d-393a-404e-b098-1422008b5b63" config-ref="HTTP_Listener_config" path="/employeeData" allowedMethods="POST" />
+		<http:listener doc:name="Listener" doc:id="f53df04d-393a-404e-b098-1422008b5b63" config-ref="HTTP_Listener_config" path="/mapapi" allowedMethods="POST" />
 		<ee:transform doc:name="Transform Message" doc:id="99cc07c2-6b94-4edf-a03e-950f242015e6">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -27,7 +27,7 @@ output application/xml
 		<logger level="INFO" doc:name="Logger" doc:id="fd699a5a-8ebf-494f-be7a-92fb907f5982" />
 	</flow>
 	<flow name="DateTime_and_DateFormat_Function_Flow" doc:id="7d6a0f92-988e-4544-a3aa-0aee9a183bf9">
-		<http:listener doc:name="Listener" doc:id="b445783c-dd73-4bd3-9775-e87a529a2bce" config-ref="HTTP_Listener_config" path="/test" />
+		<http:listener doc:name="Listener" doc:id="b445783c-dd73-4bd3-9775-e87a529a2bce" config-ref="HTTP_Listener_config" path="/datetimeapi" />
 		<ee:transform doc:name="Transform Message" doc:id="e287a5fb-675b-4649-a447-06e99eb2adb4">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -50,20 +50,25 @@ fun customAddFun(inputData1,inputData2)=
 		<logger level="INFO" doc:name="Logger" doc:id="27f7d584-16f0-4ceb-9be8-79e4e0065110" />
 	</flow>
 	<flow name="Map_and_flatten_joinBy_function" doc:id="efe3329c-1c5d-4dd8-8b47-6af90d4c8572">
-		<http:listener doc:name="Listener" doc:id="9574cc01-485d-488c-87ed-a0438fc82412" config-ref="HTTP_Listener_config" path="/employee" allowedMethods="POST" />
+		<http:listener doc:name="Listener" doc:id="9574cc01-485d-488c-87ed-a0438fc82412" config-ref="HTTP_Listener_config" path="/mapfunctionapi" allowedMethods="POST" />
 		<ee:transform doc:name="Transform Message" doc:id="231cb33c-15ec-4776-8973-864dd2da49d2">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
-output application/json
+output application/xml
+fun inventorFunction(inventorName: String) =
+	if(inventorName == 'James Gosling1')
+		upper('James Gosling2')
+	else
+		upper('James Gosling2')
 ---
-technologies:payload.employee map 
-{
-	inventor :$.skillset replace  "java" with "C++",
-	name :upper($.typeOf),
-	skillset : flatten($.label) joinBy "-"
-}
-
-]]></ee:set-payload>
+payload map ( payload01 , indexOfPayload01 ) -> {
+	Technologies: {
+		TechDetails: payload01.Technologies.*TechDetails map ( techDetail , indexOfTechDetail ) -> {
+			Name: techDetail.Inventor,
+			Inventor: inventorFunction(techDetail.Inventor)
+		}
+	} write "application/xml"
+}]]></ee:set-payload>
 			</ee:message>
 			<ee:variables>
 			</ee:variables>

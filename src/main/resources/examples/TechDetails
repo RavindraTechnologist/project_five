@@ -1,0 +1,22 @@
+<Technologies>
+    <TechDetails>
+		<Id>1</Id>
+        <Name>java</Name>
+        <Inventor>James Gosling</Inventor>
+    </TechDetails>
+	    <TechDetails>
+		<Id>2</Id>
+        <Name>java1</Name>
+        <Inventor>James Gosling1</Inventor>
+    </TechDetails>
+	    <TechDetails>
+		<Id>3</Id>
+        <Name>java2</Name>
+        <Inventor>James Gosling2</Inventor>
+    </TechDetails>
+	    <TechDetails>
+		<Id>3</Id>
+        <Name>java3</Name>
+        <Inventor>James Gosling3</Inventor>
+    </TechDetails>
+</Technologies>
