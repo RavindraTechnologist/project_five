@@ -55,15 +55,19 @@ fun customAddFun(inputData1,inputData2)=
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/xml
+fun isAbsFunction(id: Number) =
+		abs(id)
+		
 fun inventorFunction(inventorName: String) =
 	if(inventorName == 'James Gosling1')
 		upper('James Gosling2')
 	else
-		upper('James Gosling2')
+		lower('James Gosling2')
 ---
 payload map ( payload01 , indexOfPayload01 ) -> {
 	Technologies: {
 		TechDetails: payload01.Technologies.*TechDetails map ( techDetail , indexOfTechDetail ) -> {
+			Id: isAbsFunction(techDetail.Id),
 			Name: techDetail.Inventor,
 			Inventor: inventorFunction(techDetail.Inventor)
 		}
